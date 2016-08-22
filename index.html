@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+
+<meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no" />
+
+ <style id="mariojump">
+</style>
+  <style id = "sky">
+  </style>
+  <style> 
+  div {
+  margin: 0;
+  padding: 0;
+}
+section {
+  height: 400px;
+  width: 400px;
+  position: relative;
+  overflow: hidden;
+}
+#timeslot {
+  top: 130px;
+}
+.cloud {
+	position: absolute;
+	z-index: 6
+}
+.mario {
+  background: url(img1.png) no-repeat 0 -963px;
+  position: absolute;
+  left: 150px;
+	width: 94px;
+	height: 94px;
+	z-index: 15;
+	animation: mario 1000ms infinite;
+}
+
+#hour {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 100px;
+  color: white;
+  font: lighter 83px Impact, Charcoal, sans-serif;
+  text-align: center;
+  list-style: none;
+  background: url(image2.png) no-repeat right top;
+  background-size: 100px 100px;
+  animation: hour 1000ms ;
+}
+#minute {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 200px;
+  color: white;
+  font: lighter 83px Impact, Charcoal, sans-serif;
+  text-align: center;
+  list-style: none;
+  background: url(image2.png) repeat-x right top;
+  background-size: 100px 100px;
+  animation: hour 1000ms ;
+}
+.tube {	background:url(image3.png) no-repeat;
+  position: absolute;
+  bottom: 5%;
+	left: 2%;
+	width:110px;
+	height:100px;
+	z-index:10;
+}
+.bush {	background:url(image4.png) no-repeat;
+  position: absolute;
+  bottom: 10px;
+	height: 60px;
+	width: 264px;
+	left: 300px;
+	z-index: 8;
+}
+.floor {
+	background: url(image1.png)repeat-x 0 -907px;
+  position: absolute;
+  bottom: 0px;
+	height: 30px;
+	width: 100%;
+	z-index: 11;
+}
+.star{
+   animation: star 30s infinite; height: 45px; width: 50px; position: absolute; left: 35px;
+}
+@keyframes cloud {0% {left:-10%;}100% {left:100%;}}
+ @keyframes star {0% {bottom:9%;} 40% {bottom: 10%} 50% {bottom:29%;} 60% {bottom: 10%} 100% {bottom:9%;}}};
+
+@media (max-height: 700px) {
+  mario {top:10%;}
+}
+@media (max-width: 700px) {
+  mario {top:10%;}
+}
+@media (max-height: 700px) {
+  star {top:10%;}
+  </style>
+  <style id = "sky2">
+  </style>
+  <style id = "sky3">
+  </style>
+  <style id = "starstyle"> 
+  </style>
+  <style id = "timejump">
+  </style>
+  </head>
+  <body>
+<section>
+		<div class="cloud"></div>
+  <div class = "star"></div>
+    <div class="mario"></div>
+  <div class = "timeslot">
+    <li id = "hour"> </li>
+    <li id = "minute"> </li>
+  </div>
+		<div class="tube"></div>
+		<div class="bush"></div>
+		<div class="floor"></div>
+ 
+  <script>
+  var date;
+var hourElem = document.getElementById("hour");
+var minuteElem = document.getElementById("minute");
+var marioJump = document.getElementById("mariojump");
+var skyElem = document.getElementById("sky");
+var sky2Elem = document.getElementById("sky2");
+var sky3Elem = document.getElementById("sky3");
+var starElem = document.getElementById("starstyle");
+var timeJump = document.getElementById("timejump");
+var stringify = function( number ) {
+   if( number >= 10 ) {
+     return number + "";
+   } else {
+     return "0" + number;
+   }
+};
+var watch = function() {
+  date = new Date();
+if(date.getSeconds()>58) {
+  hourElem.innerHTML = " ";
+  minuteElem.innerHTML = " ";
+  marioJump.innerHTML = "@keyframes mario {0% {bottom: 9%;} 50% {bottom: 45%;} 100% {bottom: 9%;}}"
+   timeJump.innerHTML ="@keyframes hour {0% {top: 32.5%;} 50% {top: 22.5%;} 100% {top: 32.5%;}} @keyframes minute {0% {top: 32.5%;} 50% {top: 22.5%;} 100% {top: 32.5%;}}"
+  }
+  else {
+    hourElem.innerHTML = stringify(date.getHours() % 12);
+  minuteElem.innerHTML = stringify(date.getMinutes());
+    marioJump.innerHTML ="@keyframes mario {0% {bottom: 9%;} 50% {bottom: 18%;} 100% {bottom: 9%;}}"
+     timeJump.innerHTML ="#minute, #hour {top: 130px;}";
+  }
+if (date.getHours() > 6 && date.getHours() < 18)
+{ skyElem.innerHTML = "section {background: linear-gradient(to bottom, rgba(182,232,255,1) 0%, rgba(255,255,255,1) 100%);}"
+  sky2Elem.innerHTML = ".cloud { height: 132px; width: 174px; background: url(image5.png) no-repeat 0 0;}";
+  sky3Elem.innerHTML = ".cloud { animation: cloud 20s infinite;}"; 
+    starElem.innerHTML = ".star {background: url(image6.png) no-repeat; background-size: 50px 50px;}";}
+else 
+{skyElem.innerHTML = "section{background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(24,48,72,1) 100%);}"
+  sky2Elem.innerHTML = ".cloud {background: url(image7.png) no-repeat; background-size: 80px 80px; height: 100px; width: 100px; left: 300px; top: 25px;" 
+  sky3Elem.innerHTML = " ";
+    starElem.innerHTML = ".star {background: url(image8.png) no-repeat; background-size: 50px 50px;}";
+};
+};
+setInterval( watch, 1000 );
+
+</script>
+</section>
+</body>
+</html>
